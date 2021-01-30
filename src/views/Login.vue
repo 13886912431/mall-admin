@@ -180,6 +180,9 @@ export default {
 </script>
 
 <style lang="less" scoped>
+.login {
+    overflow: hidden;
+}
 .ant-form {
     width: 500px;
     margin: 100px auto;

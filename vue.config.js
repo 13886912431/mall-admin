@@ -15,7 +15,7 @@ module.exports = {
             VeIndex: "VeIndex"
         }
     },
-    productionSourceMap: process.env.VUE_APP_ENV === "prod",
+    productionSourceMap: !(process.env.VUE_APP_ENV === "prod"),
     outputDir: "docs",
     publicPath: process.env.VUE_APP_ENV === "prod" ? "https://sereinlyl.gitee.io/mall-admin" : "/"
 };
