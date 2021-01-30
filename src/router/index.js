@@ -7,7 +7,7 @@ Vue.use(VueRouter);
 
 const router = new VueRouter({
     routes,
-    mode: "history"
+    mode: process.env.VUE_APP_ENV === "prod" ? "hash" : "history",
 });
 
 router.beforeEach(async (to, from, next) => {
