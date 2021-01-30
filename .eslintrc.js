@@ -19,6 +19,6 @@ module.exports = {
         "no-undef": 0,
         "no-param-reassign": 0,
         "no-restricted-syntax": 0,
-        "no-unused-vars": [2, {"args": "none"}]
+        "no-unused-vars": [2, { args: "none" }]
     }
 };

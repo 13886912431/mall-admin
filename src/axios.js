@@ -2,7 +2,8 @@ import axios from "axios";
 import store from "./store";
 
 const instance = axios.create({
-    baseURL: "https://mallapi.duyiedu.com/"
+    baseURL: "https://mallapi.duyiedu.com/",
+    timeout: 10000
 });
 
 instance.interceptors.request.use(request => {
