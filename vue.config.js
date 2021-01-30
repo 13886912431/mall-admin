@@ -15,5 +15,7 @@ module.exports = {
             VeIndex: "VeIndex"
         }
     },
-    outputDir: "docs"
+    productionSourceMap: false,
+    outputDir: "docs",
+    publicPath: "https://13886912431.github.io/mall-admin.github.io"
 };
