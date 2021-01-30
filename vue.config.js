@@ -17,5 +17,5 @@ module.exports = {
     },
     productionSourceMap: false,
     outputDir: "docs",
-    publicPath: "/"
+    publicPath: "https://sereinlyl.gitee.io/mall-admin"
 };
