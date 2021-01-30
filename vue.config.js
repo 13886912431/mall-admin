@@ -17,5 +17,5 @@ module.exports = {
     },
     productionSourceMap: false,
     outputDir: "docs",
-    publicPath: "https://13886912431.github.io/mall-admin.github.io"
+    publicPath: "/"
 };
