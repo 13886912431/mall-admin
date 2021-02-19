@@ -10,6 +10,9 @@
                 <a-button type="primary" @click="handleEdit(record)">编辑</a-button>
                 <a-button type="danger" @click="handleDelete(record)">删除</a-button>
             </div>
+            <div slot="images" slot-scope="record" class="images">
+                <img :src="record[0]" width="90" height="90" />
+            </div>
         </a-table>
     </div>
 </template>
@@ -26,6 +29,11 @@ export default {
                 {
                     title: "id",
                     dataIndex: "id"
+                },
+                {
+                    title: "图片",
+                    dataIndex: "images",
+                    scopedSlots: { customRender: "images" }
                 },
                 {
                     title: "标题",
@@ -76,7 +84,11 @@ export default {
     methods: {
         handleEdit(record) {
             console.log(record);
-            this.$message.info("此功能还未开发");
+            sessionStorage.setItem("editForm", JSON.stringify(record));
+            this.$router.push({
+                name: "ProductAdd",
+                query: { editid: record.id }
+            });
         },
         handleDelete(record) {
             this.$modal.confirm({
@@ -89,7 +101,7 @@ export default {
                 maskClosable: true,
                 cancelText: "取消",
                 okText: "确定",
-                onOk: async (close) => {
+                onOk: async close => {
                     await productApi.delete(record.id);
                     close();
                     this.$message.success("删除成功");
@@ -105,5 +117,12 @@ export default {
 .operate,
 /deep/.ant-table-thead {
     white-space: nowrap;
+}
+.operate {
+    .ant-btn {
+        &:first-child {
+            margin-right: 5px;
+        }
+    }
 }
 </style>

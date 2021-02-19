@@ -29,7 +29,7 @@
                 >
                     <div v-if="form.images.length < 8">
                         <a-icon type="plus" />
-                        <div class="ant-upload-text">Upload</div>
+                        <div class="ant-upload-text">上传</div>
                     </div>
                 </a-upload>
                 <a-modal :visible="previewVisible" :footer="null" @cancel="previewVisible = false">
@@ -66,7 +66,6 @@ export default {
         return {
             previewVisible: false,
             previewImage: "",
-            fileList: [],
             action: `https://mallapi.duyiedu.com/upload/images?appkey=${this.$store.getters["user/getUser"].appkey}`
         };
     },
@@ -78,9 +77,22 @@ export default {
         next() {
             this.$refs.form.validate(valid => {
                 if (valid) {
+                    const addFile = this.form.images.filter(item => item.response);
+                    if (addFile.length > 0) {
+                        const result = addFile.map(item => {
+                            const data = {
+                                ...item.response.data, uid: item.uid
+                            };
+                            delete data.thumbUrl;
+                            return data;
+                        });
+                        this.form.images = [
+                            ...result,
+                            ...this.form.images.filter(item => !item.response)
+                        ];
+                    }
+                    console.log(this.form.images);
                     this.$emit("next", this.form);
-                } else {
-                    console.log("验证错误");
                 }
             });
         },

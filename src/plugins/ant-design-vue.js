@@ -15,7 +15,8 @@ import {
     Modal,
     Steps,
     Upload,
-    Checkbox
+    Checkbox,
+    ConfigProvider,
 } from "ant-design-vue";
 
 Vue.prototype.$modal = Modal;
@@ -35,4 +36,5 @@ Vue.use(Button)
     .use(Steps)
     .use(Upload)
     .use(Checkbox)
-    .use(Modal);
+    .use(Modal)
+    .use(ConfigProvider);

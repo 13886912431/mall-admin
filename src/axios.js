@@ -1,4 +1,5 @@
 import axios from "axios";
+import { Message } from "ant-design-vue";
 import store from "./store";
 
 const instance = axios.create({
@@ -20,6 +21,7 @@ instance.interceptors.request.use(request => {
 instance.interceptors.response.use(response => {
     if (response.status === 200) {
         if (response.data.status === "fail") {
+            Message.error(response.data.msg);
             return Promise.reject(response.data.msg);
         }
         if (response.data.status === "success") {

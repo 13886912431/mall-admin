@@ -26,7 +26,7 @@
                         {{ item.name }}
                     </a-select-option>
                 </a-select>
-                <a-select v-model="form.c_items" allowClear>
+                <a-select v-model="form.c_item" allowClear>
                     <a-select-option v-for="item in categoryItems" :key="item" :value="item">
                         {{ item }}
                     </a-select-option>
@@ -78,11 +78,14 @@ export default {
             });
         },
         changeCategory(id) {
-            this.form.c_items = "";
+            if (!this.$route.query.editid) {
+                this.form.c_item = "";
+            }
             this.categoryItems = this.categoryMap[id];
         },
         async getCategoryList() {
             const res = await categoryApi.categoryList();
+            console.log(res);
             this.categoryList = res.data;
             this.categoryList.forEach(item => {
                 this.categoryMap[item.id] = item.c_items;

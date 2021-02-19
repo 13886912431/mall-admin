@@ -17,6 +17,11 @@ import productApi from "@/api/product";
 
 export default {
     name: "ProductAdd",
+    components: {
+        Steps,
+        BasicDetail,
+        SaleDetail
+    },
     data() {
         return {
             current: 0,
@@ -24,7 +29,7 @@ export default {
                 title: "",
                 desc: "",
                 category: "",
-                c_items: "",
+                c_item: "",
                 tags: [],
 
                 price: "",
@@ -40,46 +45,39 @@ export default {
             ]
         };
     },
-    components: {
-        Steps,
-        BasicDetail,
-        SaleDetail
-    },
     methods: {
         async next() {
             if (this.current === this.steps.length - 1) {
+                const { editid } = this.$route.query;
+                console.log(this.form);
                 const data = {
                     ...this.form,
-                    c_items: this.form.c_items && this.form.c_items.split(" "),
+                    c_items: this.form.c_item && this.form.c_item.split(" "),
                     status: this.form.status ? 1 : 0,
-                    images: this.form.images.map(item => item.response.data.url)
+                    images: this.form.images.map(item => item.url)
                 };
-                await productApi.add(data);
-                this.$modal.confirm({
-                    title: "添加成功",
+                delete data.c_item;
+                console.log(data);
+                let title = "添加成功";
+                if (editid) {
+                    title = "修改成功";
+                    await productApi.edit(data);
+                    sessionStorage.removeItem("editForm");
+                    this.$router.replace({
+                        name: "ProductAdd"
+                    });
+                } else {
+                    await productApi.add(data);
+                }
+                this.$modal.success({
+                    title,
                     mask: true,
-                    cancelText: "继续添加",
-                    okText: "查看商品列表",
+                    okText: "完成",
                     icon: "check-circle",
-                    onOk: (close) => {
+                    onOk: close => {
                         close();
                         this.$router.push({ name: "ProductList" });
                     },
-                    onCancel: (close) => {
-                        close();
-                        this.current = 0;
-                        const temp = {};
-                        for (const key in this.form) {
-                            if (Array.isArray(this.form[key])) {
-                                temp[key] = [];
-                            } else if (typeof this.form[key] === "boolean") {
-                                temp[key] = true;
-                            } else if (typeof this.form[key] === "string") {
-                                temp[key] = "";
-                            }
-                        }
-                        this.form = temp;
-                    }
                 });
             } else {
                 this.current += 1;
@@ -88,6 +86,23 @@ export default {
         prev() {
             this.current -= 1;
         }
-    }
+    },
+    created() {
+        const { editid } = this.$route.query;
+        if (editid) {
+            let editForm = sessionStorage.getItem("editForm");
+            if (editForm) {
+                editForm = JSON.parse(editForm);
+                editForm.images = editForm.images.map((item, index) => ({
+                    uid: index,
+                    name: `image-${index}.png`,
+                    status: 'done',
+                    url: item
+                }));
+                editForm.status = editForm.status === 1;
+                this.form = editForm;
+            }
+        }
+    },
 };
 </script>
