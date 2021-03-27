@@ -118,6 +118,13 @@ export default {
             isRegister: false
         };
     },
+    beforeRouteEnter(to, from, next) {
+        if (localStorage.getItem("user")) {
+            next({ name: "Home" });
+        } else {
+            next();
+        }
+    },
     computed: {
         rules() {
             if (this.isRegister) {
