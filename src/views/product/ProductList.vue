@@ -11,13 +11,13 @@
 </template>
 
 <script>
-import ProductTable from "@/components/ProductTable.vue";
-import SearchArea from "@/components/SearchArea.vue";
-import productApi from "@/api/product";
-import categoryApi from "@/api/category";
+import ProductTable from '@/components/ProductTable.vue';
+import SearchArea from '@/components/SearchArea.vue';
+import productApi from '@/api/product';
+import categoryApi from '@/api/category';
 
 export default {
-    name: "ProductList",
+    name: 'ProductList',
     components: {
         SearchArea,
         ProductTable,
@@ -48,7 +48,6 @@ export default {
                 ...this.searchForm
             };
             const res = await productApi.productList({ params });
-            console.log(res);
             this.productList = res.data.map(item => ({
                 ...item,
                 categoryName: this.categoryMap[item.category]

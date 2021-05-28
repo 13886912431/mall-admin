@@ -1,7 +1,7 @@
 export default {
     namespaced: true,
     state: {
-        user: {}
+        user: null,
     },
     getters: {
         getUser(state) {
@@ -15,18 +15,18 @@ export default {
     },
     actions: {
         login({ commit }, userInfo) {
-            commit("setUser", userInfo);
-            localStorage.setItem("user", JSON.stringify(userInfo));
+            commit('setUser', userInfo);
+            localStorage.setItem('user', JSON.stringify(userInfo));
         },
         logout({ commit }) {
-            commit("setUser", null);
-            localStorage.removeItem("user");
+            commit('setUser', null);
+            localStorage.removeItem('user');
         },
         whoAmI({ commit }) {
-            let user = localStorage.getItem("user");
+            let user = localStorage.getItem('user');
             if (user) {
                 user = JSON.parse(user);
-                commit("setUser", user);
+                commit('setUser', user);
                 return user;
             }
             return false;

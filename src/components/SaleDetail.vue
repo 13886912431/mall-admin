@@ -61,18 +61,18 @@ function getBase64(file) {
     });
 }
 export default {
-    name: "SaleDetail",
+    name: 'SaleDetail',
     data() {
         return {
             previewVisible: false,
-            previewImage: "",
-            action: `https://mallapi.duyiedu.com/upload/images?appkey=${this.$store.getters["user/getUser"].appkey}`
+            previewImage: '',
+            action: `https://mallapi.duyiedu.com/upload/images?appkey=${this.$store.getters['user/getUser'].appkey}`
         };
     },
-    props: ["form"],
+    props: ['form'],
     methods: {
         prev() {
-            this.$emit("prev");
+            this.$emit('prev');
         },
         next() {
             this.$refs.form.validate(valid => {
@@ -91,8 +91,7 @@ export default {
                             ...this.form.images.filter(item => !item.response)
                         ];
                     }
-                    console.log(this.form.images);
-                    this.$emit("next", this.form);
+                    this.$emit('next', this.form);
                 }
             });
         },

@@ -1,4 +1,4 @@
-import Vue from "vue";
+import Vue from 'vue';
 import {
     Button,
     Menu,
@@ -17,7 +17,7 @@ import {
     Upload,
     Checkbox,
     ConfigProvider,
-} from "ant-design-vue";
+} from 'ant-design-vue';
 
 Vue.prototype.$modal = Modal;
 Vue.prototype.$message = Message;

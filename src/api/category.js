@@ -1,5 +1,5 @@
-import axios from "@/axios";
+import axios from '@/axios';
 
 export default {
-    categoryList: params => axios.get("/category/all", params),
+    categoryList: params => axios.get('/category/all', params),
 };

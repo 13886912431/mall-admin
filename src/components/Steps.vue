@@ -13,8 +13,8 @@
 
 <script>
 export default {
-    name: "Steps",
-    props: ["current", "steps"],
+    name: 'Steps',
+    props: ['current', 'steps'],
 };
 </script>
 

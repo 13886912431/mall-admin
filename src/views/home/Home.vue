@@ -14,11 +14,11 @@
 </template>
 
 <script>
-import SideMenu from "@/components/SideMenu.vue";
-import TopNav from "@/components/TopNav.vue";
+import SideMenu from '@/components/SideMenu.vue';
+import TopNav from '@/components/TopNav.vue';
 
 export default {
-    name: "Home",
+    name: 'Home',
     components: {
         SideMenu,
         TopNav

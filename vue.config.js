@@ -11,11 +11,11 @@ module.exports = {
     },
     configureWebpack: {
         externals: {
-            echarts: "echarts",
-            VeIndex: "VeIndex"
+            echarts: 'echarts',
+            VeIndex: 'VeIndex'
         }
     },
-    productionSourceMap: !(process.env.VUE_APP_ENV === "prod"),
-    outputDir: "docs",
-    publicPath: process.env.VUE_APP_ENV === "prod" ? "https://13886912431.github.io/mall-admin" : "/"
+    productionSourceMap: process.env.NODE_ENV !== 'production',
+    outputDir: 'docs',
+    publicPath: process.env.NODE_ENV === 'production' ? 'https://13886912431.github.io/mall-admin' : '/'
 };

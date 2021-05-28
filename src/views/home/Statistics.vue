@@ -6,11 +6,11 @@
 </template>
 
 <script>
-import Card from "@/components/Card.vue";
-import LineChart from "@/components/LineChart.vue";
+import Card from '@/components/Card.vue';
+import LineChart from '@/components/LineChart.vue';
 
 export default {
-    name: "Statistics",
+    name: 'Statistics',
     components: {
         Card,
         LineChart

@@ -18,60 +18,60 @@
 </template>
 
 <script>
-import productApi from "@/api/product";
+import productApi from '@/api/product';
 
 export default {
-    name: "ProductTable",
-    props: ["data", "page"],
+    name: 'ProductTable',
+    props: ['data', 'page'],
     data() {
         return {
             columns: [
                 {
-                    title: "id",
-                    dataIndex: "id"
+                    title: 'id',
+                    dataIndex: 'id'
                 },
                 {
-                    title: "图片",
-                    dataIndex: "images",
-                    scopedSlots: { customRender: "images" }
+                    title: '图片',
+                    dataIndex: 'images',
+                    scopedSlots: { customRender: 'images' }
                 },
                 {
-                    title: "标题",
-                    dataIndex: "title"
+                    title: '标题',
+                    dataIndex: 'title'
                 },
                 {
-                    title: "描述",
-                    dataIndex: "desc",
+                    title: '描述',
+                    dataIndex: 'desc',
                 },
                 {
-                    title: "类目",
-                    dataIndex: "categoryName",
+                    title: '类目',
+                    dataIndex: 'categoryName',
                 },
                 {
-                    title: "预售价格",
-                    dataIndex: "price",
+                    title: '预售价格',
+                    dataIndex: 'price',
                 },
                 {
-                    title: "折扣价格",
-                    dataIndex: "price_off",
+                    title: '折扣价格',
+                    dataIndex: 'price_off',
                 },
                 {
-                    title: "标签",
-                    dataIndex: "tags",
+                    title: '标签',
+                    dataIndex: 'tags',
                 },
                 {
-                    title: "限制购买数量",
-                    dataIndex: "inventory",
+                    title: '限制购买数量',
+                    dataIndex: 'inventory',
                 },
                 {
-                    title: "上架状态",
-                    dataIndex: "status",
-                    customRender: text => (text === 1 ? "上架" : "下架")
+                    title: '上架状态',
+                    dataIndex: 'status',
+                    customRender: text => (text === 1 ? '上架' : '下架')
                 },
                 {
-                    title: "操作",
-                    key: "operate",
-                    scopedSlots: { customRender: "operate" }
+                    title: '操作',
+                    key: 'operate',
+                    scopedSlots: { customRender: 'operate' }
                 }
             ]
         };
@@ -83,10 +83,9 @@ export default {
     },
     methods: {
         handleEdit(record) {
-            console.log(record);
-            sessionStorage.setItem("editForm", JSON.stringify(record));
+            sessionStorage.setItem('editForm', JSON.stringify(record));
             this.$router.push({
-                name: "ProductAdd",
+                name: 'ProductAdd',
                 query: { editid: record.id }
             });
         },
@@ -99,13 +98,13 @@ export default {
                 },
                 mask: true,
                 maskClosable: true,
-                cancelText: "取消",
-                okText: "确定",
+                cancelText: '取消',
+                okText: '确定',
                 onOk: async close => {
                     await productApi.delete(record.id);
                     close();
-                    this.$message.success("删除成功");
-                    this.$emit("delete");
+                    this.$message.success('删除成功');
+                    this.$emit('delete');
                 }
             });
         },

@@ -10,13 +10,13 @@
 </template>
 
 <script>
-import Steps from "@/components/Steps.vue";
-import BasicDetail from "@/components/BasicDetail.vue";
-import SaleDetail from "@/components/SaleDetail.vue";
-import productApi from "@/api/product";
+import Steps from '@/components/Steps.vue';
+import BasicDetail from '@/components/BasicDetail.vue';
+import SaleDetail from '@/components/SaleDetail.vue';
+import productApi from '@/api/product';
 
 export default {
-    name: "ProductAdd",
+    name: 'ProductAdd',
     components: {
         Steps,
         BasicDetail,
@@ -26,22 +26,22 @@ export default {
         return {
             current: 0,
             form: {
-                title: "",
-                desc: "",
-                category: "",
-                c_item: "",
+                title: '',
+                desc: '',
+                category: '',
+                c_item: '',
                 tags: [],
 
-                price: "",
-                price_off: "",
-                inventory: "",
-                unit: "",
+                price: '',
+                price_off: '',
+                inventory: '',
+                unit: '',
                 images: [],
                 status: true
             },
             steps: [
-                "填写商品基本信息",
-                "填写商品销售信息"
+                '填写商品基本信息',
+                '填写商品销售信息'
             ]
         };
     },
@@ -49,22 +49,20 @@ export default {
         async next() {
             if (this.current === this.steps.length - 1) {
                 const { editid } = this.$route.query;
-                console.log(this.form);
                 const data = {
                     ...this.form,
-                    c_items: this.form.c_item && this.form.c_item.split(" "),
+                    c_items: this.form.c_item && this.form.c_item.split(' '),
                     status: this.form.status ? 1 : 0,
                     images: this.form.images.map(item => item.url)
                 };
                 delete data.c_item;
-                console.log(data);
-                let title = "添加成功";
+                let title = '添加成功';
                 if (editid) {
-                    title = "修改成功";
+                    title = '修改成功';
                     await productApi.edit(data);
-                    sessionStorage.removeItem("editForm");
+                    sessionStorage.removeItem('editForm');
                     this.$router.replace({
-                        name: "ProductAdd"
+                        name: 'ProductAdd'
                     });
                 } else {
                     await productApi.add(data);
@@ -72,11 +70,11 @@ export default {
                 this.$modal.success({
                     title,
                     mask: true,
-                    okText: "完成",
-                    icon: "check-circle",
+                    okText: '完成',
+                    icon: 'check-circle',
                     onOk: close => {
                         close();
-                        this.$router.push({ name: "ProductList" });
+                        this.$router.push({ name: 'ProductList' });
                     },
                 });
             } else {
@@ -90,7 +88,7 @@ export default {
     created() {
         const { editid } = this.$route.query;
         if (editid) {
-            let editForm = sessionStorage.getItem("editForm");
+            let editForm = sessionStorage.getItem('editForm');
             if (editForm) {
                 editForm = JSON.parse(editForm);
                 editForm.images = editForm.images.map((item, index) => ({

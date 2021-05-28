@@ -57,70 +57,70 @@
 </template>
 
 <script>
-import userApi from "@/api/user";
+import userApi from '@/api/user';
 
 const emailReg = /^[a-zA-Z0-9_-]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$/;
 const checkEmail = (rule, value, callback) => {
     if (!value) {
-        return callback(new Error("请输入邮箱"));
+        return callback(new Error('请输入邮箱'));
     }
     if (emailReg.test(value)) {
         return callback();
     }
-    return callback(new Error("邮箱格式不正确"));
+    return callback(new Error('邮箱格式不正确'));
 };
 const checkPassword = (rule, value, callback) => {
     if (!value) {
-        return callback(new Error("请输入密码"));
+        return callback(new Error('请输入密码'));
     }
     return callback();
 };
 const checkCode = (rule, value, callback) => {
     if (!value) {
-        return callback(new Error("请输入验证码"));
+        return callback(new Error('请输入验证码'));
     }
     return callback();
 };
 const checkUsername = (rule, value, callback) => {
     if (!value) {
-        return callback(new Error("请输入用户名"));
+        return callback(new Error('请输入用户名'));
     }
     return callback();
 };
 // 登录的验证规则
 const rules = {
     email: [
-        { validator: checkEmail, trigger: "change" },
+        { validator: checkEmail, trigger: 'change' },
     ],
     password: [
-        { validator: checkPassword, trigger: "change" }
+        { validator: checkPassword, trigger: 'change' }
     ]
 };
 // 注册附加的验证规则
 const registerRules = {
     code: [
-        { validator: checkCode, trigger: "change" },
+        { validator: checkCode, trigger: 'change' },
     ],
     username: [
-        { validator: checkUsername, trigger: "change" }
+        { validator: checkUsername, trigger: 'change' }
     ]
 };
 export default {
-    name: "Login",
+    name: 'Login',
     data() {
         return {
             form: {
-                email: "",
-                password: "",
-                code: "",
-                username: ""
+                email: '',
+                password: '',
+                code: '',
+                username: ''
             },
             isRegister: false
         };
     },
     beforeRouteEnter(to, from, next) {
-        if (localStorage.getItem("user")) {
-            next({ name: "Home" });
+        if (localStorage.getItem('user')) {
+            next({ name: 'Home' });
         } else {
             next();
         }
@@ -147,8 +147,8 @@ export default {
                     if (valid) {
                         try {
                             const res = await userApi.login(this.form);
-                            this.$store.dispatch("user/login", res);
-                            this.$router.push("/");
+                            this.$store.dispatch('user/login', res);
+                            this.$router.push('/');
                         } catch (err) {
                             this.$message.error(err);
                         }
@@ -163,7 +163,7 @@ export default {
                         try {
                             await userApi.logon(this.form);
                             this.isRegister = false;
-                            this.$message.success("注册成功");
+                            this.$message.success('注册成功');
                             this.login('loginForm');
                         } catch (err) {
                             this.$message.error(err);
@@ -176,9 +176,9 @@ export default {
         },
         async sendCode() {
             if (!this.form.email) {
-                return this.$message.info("请先输入您邮箱");
+                return this.$message.info('请先输入您邮箱');
             }
-            this.$message.success("验证码以发送至您的邮箱");
+            this.$message.success('验证码以发送至您的邮箱');
             const res = await userApi.getCode({ email: this.form.email });
             return res;
         }

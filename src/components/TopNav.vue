@@ -27,16 +27,16 @@
 
 <script>
 export default {
-    name: "TopNav",
+    name: 'TopNav',
     model: {
-        prop: "collapsed",
-        event: "click"
+        prop: 'collapsed',
+        event: 'click'
     },
-    props: ["collapsed"],
+    props: ['collapsed'],
     methods: {
         logout() {
-            this.$store.dispatch("user/logout");
-            this.$router.push("/login");
+            this.$store.dispatch('user/logout');
+            this.$router.push('/login');
         }
     },
 };

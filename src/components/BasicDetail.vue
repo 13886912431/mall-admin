@@ -56,36 +56,35 @@
 </template>
 
 <script>
-import categoryApi from "@/api/category";
+import categoryApi from '@/api/category';
 
 export default {
-    name: "BasicDetail",
+    name: 'BasicDetail',
     data() {
         return {
-            defaultTags: ["包邮，最晚次日送达"],
+            defaultTags: ['包邮，最晚次日送达'],
             categoryList: [],
             categoryItems: [],
             categoryMap: {}
         };
     },
-    props: ["form"],
+    props: ['form'],
     methods: {
         next() {
             this.$refs.form.validate(valid => {
                 if (valid) {
-                    this.$emit("next");
+                    this.$emit('next');
                 }
             });
         },
         changeCategory(id) {
             if (!this.$route.query.editid) {
-                this.form.c_item = "";
+                this.form.c_item = '';
             }
             this.categoryItems = this.categoryMap[id];
         },
         async getCategoryList() {
             const res = await categoryApi.categoryList();
-            console.log(res);
             this.categoryList = res.data;
             this.categoryList.forEach(item => {
                 this.categoryMap[item.id] = item.c_items;

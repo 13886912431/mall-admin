@@ -1,30 +1,30 @@
-import axios from "axios";
-import { Message } from "ant-design-vue";
-import store from "./store";
+import axios from 'axios';
+import { Message } from 'ant-design-vue';
+import store from '@/store';
 
 const instance = axios.create({
-    baseURL: "https://mallapi.duyiedu.com/",
+    baseURL: 'https://mallapi.duyiedu.com/',
     timeout: 10000
 });
 
 instance.interceptors.request.use(request => {
-    if (request.url.includes("passport")) {
+    if (request.url.includes('passport')) {
         return request;
     }
     request.params = {
         ...request.params,
-        appkey: store.getters["user/getUser"].appkey
+        appkey: store.getters['user/getUser'].appkey
     };
     return request;
 }, error => Promise.reject(error));
 
 instance.interceptors.response.use(response => {
     if (response.status === 200) {
-        if (response.data.status === "fail") {
+        if (response.data.status === 'fail') {
             Message.error(response.data.msg);
             return Promise.reject(response.data.msg);
         }
-        if (response.data.status === "success") {
+        if (response.data.status === 'success') {
             return response.data.data;
         }
     }

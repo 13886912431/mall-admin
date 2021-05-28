@@ -41,16 +41,16 @@
 
 <script>
 export default {
-    name: "SearchArea",
+    name: 'SearchArea',
     data() {
         return {
             form: {
-                searchWord: "",
-                category: ""
+                searchWord: '',
+                category: ''
             },
         };
     },
-    props: ["categoryList"],
+    props: ['categoryList'],
 };
 </script>
 

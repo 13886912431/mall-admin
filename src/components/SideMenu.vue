@@ -8,41 +8,46 @@
             :inlineCollapsed="collapsed"
         >
             <a-sub-menu
-                v-for="route in routes"
-                :key="route.name"
+                v-for="item in menu"
+                :key="item.name"
             >
-                <span slot="title">
-                    <a-icon :type="route.meta.icon" />
-                    <span>{{ route.meta.title }}</span>
-                </span>
-                <a-menu-item
-                    v-for="child in route.children"
-                    :key="child.name"
+                <span
+                    slot="title"
+                    v-if="item.meta.roles.includes(($store.getters['user/getUser'] || {}).role)"
                 >
-                    <router-link :to="{ name: child.name }" tag="div">
-                        <a-icon :type="child.meta.icon" />
-                        <span>{{ child.meta.title }}</span>
-                    </router-link>
-                </a-menu-item>
+                    <a-icon :type="item.meta.icon" />
+                    <span>{{ item.meta.title }}</span>
+                </span>
+                <template v-for="it in item.children">
+                    <a-menu-item
+                        :key="it.name"
+                        v-if="it.meta.roles.includes(($store.getters['user/getUser'] || {}).role)"
+                    >
+                        <router-link :to="{ name: it.name }" tag="div">
+                            <a-icon :type="it.meta.icon" />
+                            <span>{{ it.meta.title }}</span>
+                        </router-link>
+                    </a-menu-item>
+                </template>
             </a-sub-menu>
         </a-menu>
     </menu>
 </template>
 
 <script>
-import roleToMenu from "@/utils/roleToMenu";
+import { menu } from '@/router/routes';
 
 export default {
-    name: "Menu",
+    name: 'Menu',
     model: {
-        prop: "collapsed"
+        prop: 'collapsed'
     },
-    props: ["collapsed"],
+    props: ['collapsed'],
     data() {
         return {
-            routes: roleToMenu(this.$store.getters['user/getUser'].role)
+            menu: Object.freeze(menu)
         };
-    },
+    }
 };
 </script>
 
